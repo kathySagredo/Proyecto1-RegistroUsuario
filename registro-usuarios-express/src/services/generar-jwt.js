@@ -13,10 +13,10 @@ const generarJWT = (idUser = "") => {
         expiresIn: "4h", //Opciones que incluyen la duración de validez del token. En este caso, el token será válido durante 4 horas a partir de su generación.
       },
       (err, token) => { // Una función de devolución de llamada (callback) que se ejecutará una vez que el token se haya generado.
-        if (err) {
+        if (err) { // Si existe un error por lo tanto se rechaza la promesa (reject).
           console.log(err);
           reject("No se pudo generar el token");
-        } else {
+        } else { // Si no existe un error, por lo tanto se resuelve la promesa (resolve).  
           resolve(token);
         }
       }

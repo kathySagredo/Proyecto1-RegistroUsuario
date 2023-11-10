@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // Se utiliza la desestructuración para extraer el objeto Schema de la instancia de mongoose.
 const { Schema } = mongoose;
 
-//creacion del schema
+// Creación del schema
 // Se crea un esquema llamado userSchema que define la estructura de los documentos de usuarios en la base de datos. Cada campo del esquema corresponde a una propiedad que tendrá cada documento de usuario en la base de datos. Los campos incluyen name, lastName, email, password, status, y rol.
 const userSchema = new Schema({
     name: String, // Para cada campo, se especifica su tipo de dato, que en este caso es String. Esto indica que los valores almacenados en estos campos serán cadenas de texto.
@@ -29,7 +29,7 @@ const userSchema = new Schema({
     }
 })
 
-//creacion del modelo
+// Creación del modelo
 // Se crea un modelo de datos llamado User utilizando la función mongoose.model(). Este modelo está basado en el esquema userSchema que definiste anteriormente.
 const User = mongoose.model('User', userSchema);
 // El primer argumento de mongoose.model() es el nombre del modelo, que en este caso es "User". Este nombre se utilizará para interactuar con la colección de usuarios en la base de datos.
