@@ -46,23 +46,28 @@ const UserLogin = () => {
     document.getElementById("password").value = "";
   
   // Realiza una solicitud POST al servidor con la información de inicio de sesión proporcionada por el usuario.
-    fetch("http://localhost:8080/api/v1/login", {
+  // Es necesario instalar cors en nuestro backend que nos permite dar funcionalidad a nuestro proyecto en node para poder gestionar el tema de los permisos  
+    fetch("http://localhost:8080/api/v1/login", {  // Misma ruta definida en backend 
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Cabecera que indica que el contenido es de tipo JSON
       },
       body: JSON.stringify(user), //convertir objeto en JS en una cadena de texto en formato json
     })
-      .then((response) => response.json())
-      .then((data) => {  // Si la solicitud es exitosa, actualiza el estado userLogueado con la respuesta del servidor y almacena el token JWT en el almacenamiento local.
-        setEmail("");
+      .then((response) => response.json()) // Después de realizar la solicitud HTTP, el método .json() se utiliza para extraer y parsear la respuesta como JSON.
+      .then((data) => {  
+        // Si la solicitud es exitosa, actualiza el estado userLogueado con la respuesta del servidor y almacena el token JWT en el almacenamiento local.
+        setEmail(""); // Se limpian los estados despues de enviar el formulario
         setPassword("");
-        setUserLogueado(data);
-        const token = jwtDecode(JSON.stringify(data.token));
+        setUserLogueado(data); // actualiza el estado userLogueado
+        const token = jwtDecode(JSON.stringify(data.token)); // Decodifica el token recibido del servidor
         console.log(token);
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", JSON.stringify(data.token)); // Almacena el token JWT en el almacenamiento local del navegador. Esto es común en la autenticación para mantener el estado de sesión del usuario incluso después de recargar la página.
       });
   };
+
+  // Recuerda: JSON.parse es una función en JavaScript que se utiliza para convertir una cadena JSON en un objeto JavaScript
+  // Recuerda: JSON.stringify es un método en JavaScript que se utiliza para convertir un objeto JavaScript en una cadena JSON
   
   //Almacena la información del usuario en el almacenamiento local si el estado userLogueado tiene un status de 200.
   useEffect(() => {
