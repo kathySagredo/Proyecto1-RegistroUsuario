@@ -1,7 +1,7 @@
 /* Se importan las funciones controladoras crearUser, loginUser, getUserById y updateUserById desde el archivo '../controllers/user.controller'. Estas funciones manejan las operaciones relacionadas con los usuarios.
 Se crea una instancia de un enrutador Express utilizando express.Router() y se almacena en la variable router. */
 
-const { crearUser, loginUser, getUserById, updateUserById } = require('../controllers/user.controller');
+const { crearUser, loginUser, getUserById, updateStatusUserById, updateUserById } = require('../controllers/user.controller');
 const router = require('express').Router();
 
 // Se definen varias rutas en el enrutador junto con los métodos HTTP correspondientes (POST, GET, PUT O DELETE). Cada ruta está asociada a una función controladora específica que se ejecutará cuando se reciba una solicitud a esa ruta.
@@ -14,8 +14,11 @@ router.post('/login', loginUser) // Para el inicio de sesión de un usuario, se 
 // obtener un usuario por su id
 router.get('/getbyid/:iduser', getUserById) // Para obtener un usuario por su ID, se utiliza el método GET y la ruta '/getbyid/:iduser'. Cuando se reciba una solicitud GET en esta ruta con un ID de usuario en la URL, se ejecutará la función getUserById del controlador.
 
-// actualizar su información
-router.put('/update/:iduser', updateUserById) // Para actualizar la información de un usuario por su ID, se utiliza el método PUT y la ruta '/update/:iduser'. Cuando se reciba una solicitud PUT en esta ruta con un ID de usuario en la URL, se ejecutará la función updateUserById del controlador.
+// actualizar el status del usuario
+router.put('/update-status/:iduser', updateStatusUserById) // Para actualizar la información de un usuario por su ID, se utiliza el método PUT y la ruta '/update/:iduser'. Cuando se reciba una solicitud PUT en esta ruta con un ID de usuario en la URL, se ejecutará la función updateUserById del controlador.
+
+// actualizar datos (email) del usuario
+router.put('/update/:iduser', updateUserById)
 
 // obtener listado de todos los usuarios
 

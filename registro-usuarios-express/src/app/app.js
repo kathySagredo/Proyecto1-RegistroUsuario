@@ -3,10 +3,13 @@
 // Se importa el módulo user.routes desde el directorio "../routes". Archivo que define las rutas relacionadas con los usuarios en la aplicación.
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const router = require('../routes/user.routes')
+
 
 // Se crea una instancia de la aplicación Express, que se almacenará en la variable app. Esta instancia se utiliza para configurar y ejecutar la aplicación web.
 const app = express();
+app.use(cors())
 
 //Se configuran varios middleware en la aplicación Express utilizando el método app.use().
 //Los middleware son funciones que se ejecutan en el orden en que se definen y se utilizan para procesar las solicitudes HTTP antes de que lleguen a las rutas.

@@ -152,7 +152,7 @@ const getUserById = async (req, res) => {
 };
 
 // Esta función se encarga de actualizar el estado de un usuario a "inactive".
-const updateUserById = async (req, res) => {
+const updateStatusUserById = async (req, res) => {
   const { iduser } = req.params; // Extrae el ID del usuario de los parámetros de la solicitud (a través de req.params). "req.params" los extrae de los parametros de la URL definidos en la ruta de la solicitud.
 
   if (!iduser) { // Comprueba si el id esta presente segun la logica anterior. 
@@ -197,6 +197,36 @@ const updateUserById = async (req, res) => {
 };
 
 // crear controlador y ruta para actualizar el email de un usuario
+const updateUserById = async (req, res)=>{
+  const { iduser } = req.params; // Extrae el ID del usuario de los parámetros de la solicitud (a través de req.params). "req.params" los extrae de los parametros de la URL definidos en la ruta de la solicitud.
+  const { name, lastName, email } = req.body; // Extrae el nombre, apellido y email del usuario del body de la solicitud (a través de req.body)
+
+  if (!iduser) { // Comprueba si el id esta presente segun la logica anterior. 
+    return res.status(404).json({
+      msg: "Id de usuario es requerido",
+      status: 404,
+    });
+  }
+
+  if (iduser.length !== 24) { //Validación de 24 caracteres, misma lógica anterior.
+    return res.status(404).json({
+      msg: "Id de usuario no válido",
+      status: 404,
+    });
+  }
+
+  const userChanges = {
+    name: name, 
+    lastName: lastName,
+    email: email
+  }
+
+  await User.findByIdAndUpdate(iduser, userChanges) // Gestiona el cambio o actualización de uno de esos 3 o todos los parametros en userChanges.
+  res.status(200).json({
+    msg: "Usuario actualizado correctamente",
+    status:200
+  })
+}
 // recibir por params el id del usuario
 // recibir por body el nuevo email
 // utilizar el metodode mongoose findByIdAndUpdate o findOneAndUpdate o updateOne
@@ -205,5 +235,6 @@ module.exports = {
   crearUser,
   loginUser,
   getUserById,
-  updateUserById,
+  updateStatusUserById,
+  updateUserById
 };
